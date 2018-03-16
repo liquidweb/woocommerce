@@ -1152,6 +1152,7 @@ ul.wc_coupon_list_block {
 		.wc-customer-user, .wc-order-status {
 			label a {
 				float: right;
+				margin-left: 8px;
 			}
 		}
 
@@ -2246,12 +2247,14 @@ ul.wc_coupon_list_block {
 		}
 	}
 	.wc-order-preview-addresses {
-		overflow:hidden;
+		overflow: hidden;
+		padding-bottom: 1.5em;
+
 		.wc-order-preview-address,
 		.wc-order-preview-note {
 			width: 50%;
 			float: left;
-			padding: 1.5em;
+			padding: 1.5em 1.5em 0;
 			box-sizing: border-box;
 			word-wrap: break-word;
 
@@ -2265,9 +2268,6 @@ ul.wc_coupon_list_block {
 			strong:first-child {
 				margin-top: 0;
 			}
-		}
-		.wc-order-preview-note {
-			padding-top: 0;
 		}
 	}
 	footer {
@@ -2352,6 +2352,23 @@ ul.wc_coupon_list_block {
 			text-align: center;
 			margin: 0;
 			display: block;
+		}
+	}
+
+	.post-type-shop_order .wp-list-table {
+		td.column-order_number {
+			padding-bottom: .5em;
+		}
+		td.column-order_status,
+		td.column-order_date {
+			display: inline-block !important;
+			padding: 0 1em 1em 1em !important;
+			&:before {
+				display: none !important;
+			}
+		}
+		td.column-order_status {
+			float: right;
 		}
 	}
 }

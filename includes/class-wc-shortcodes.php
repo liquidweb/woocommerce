@@ -2,8 +2,6 @@
 /**
  * Shortcodes
  *
- * @author   Automattic
- * @category Class
  * @package  WooCommerce/Classes
  * @version  3.2.0
  */
@@ -502,6 +500,9 @@ class WC_Shortcodes {
 			remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 		}
 
+		// Change form action to avoid redirect.
+		add_filter( 'woocommerce_add_to_cart_form_action', '__return_empty_string' );
+
 		$single_product = new WP_Query( $args );
 
 		$preselected_id = '0';
@@ -573,6 +574,8 @@ class WC_Shortcodes {
 		if ( isset( $atts['show_title'] ) && ! $atts['show_title'] ) {
 			add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 		}
+
+		remove_filter( 'woocommerce_add_to_cart_form_action', '__return_empty_string' );
 
 		return '<div class="woocommerce">' . ob_get_clean() . '</div>';
 	}

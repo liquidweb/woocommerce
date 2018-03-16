@@ -2,8 +2,8 @@
 /**
  * List tables: orders.
  *
- * @author   WooCommerce
- * @version  3.3.0
+ * @package WooCommerce\admin
+ * @version 3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -223,7 +223,8 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 	protected function render_order_date_column() {
 		$order_timestamp = $this->object->get_date_created()->getTimestamp();
 
-		if ( $order_timestamp > strtotime( '-1 day', current_time( 'timestamp', true ) ) ) {
+		// Check if the order was created within the last 24 hours, and not in the future.
+		if ( $order_timestamp > strtotime( '-1 day', current_time( 'timestamp', true ) ) && $order_timestamp <= current_time( 'timestamp', true ) ) {
 			$show_date = sprintf(
 				/* translators: %s: human-readable time difference */
 				_x( '%s ago', '%s = human-readable time difference', 'woocommerce' ),
@@ -481,7 +482,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 							$html .= '<table cellspacing="0" class="wc-order-item-meta">';
 
 							foreach ( $meta_data as $meta_id => $meta ) {
-								if ( in_array( $meta->key, $hidden_order_itemmeta ) ) {
+								if ( in_array( $meta->key, $hidden_order_itemmeta, true ) ) {
 									continue;
 								}
 								$html .= '<tr><th>' . wp_kses_post( $meta->display_key ) . ':</th><td>' . wp_kses_post( force_balance_tags( $meta->display_value ) ) . '</td></tr>';
